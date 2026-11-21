@@ -4,7 +4,7 @@ Static GitHub Pages site for **ReEmbody: Cross-Embodiment Data Reuse for Real-Wo
 
 ## Publish
 
-Copy the contents of this folder to the root of `DAGroup-PKU/ReEmbody.github.io`, then enable GitHub Pages from the repository's default branch and root directory. The paper button points to the included `assets/ReEmbody-paper.pdf`; replace it with the public arXiv URL when available. The repository button points to this page's target repository; replace it with the public code repository when released.
+The contents of this folder are committed to `DAGroup-PKU/ReEmbody.github.io`. In repository **Settings → Pages**, set the build and deployment source to **GitHub Actions**. The included workflow then deploys on pushes to `main`. The paper button points to the included `assets/ReEmbody-paper.pdf`; replace it with the public arXiv URL when available. The repository button points to this page's target repository; replace it with the public code repository when released.
 
 ## Assets
 
