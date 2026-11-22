@@ -304,6 +304,15 @@
       });
     });
 
+    const muteBtn = $('#mute-btn');
+    const syncMute = () => {
+      $('#icon-sound')?.classList.toggle('hidden', mainVideo.muted);
+      $('#icon-muted')?.classList.toggle('hidden', !mainVideo.muted);
+    };
+    muteBtn?.addEventListener('click', () => { mainVideo.muted = !mainVideo.muted; syncMute(); });
+    mainVideo.addEventListener('volumechange', syncMute);
+    syncMute();
+
     fullscreenBtn?.addEventListener('click', () => {
       const target = $('#showcase-player');
       if (document.fullscreenElement) document.exitFullscreen?.();
