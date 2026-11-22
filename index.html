@@ -3,36 +3,408 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ReEmbody converts source robot demonstrations into target-specific data for real-world robot learning.">
-  <meta name="theme-color" content="#101b2b">
+  <meta name="description" content="ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning">
+  <meta property="og:image" content="assets/posters/reembody-showcase.jpg">
   <link rel="icon" href="assets/figures/icon.png">
-  <title>ReEmbody | Cross-Embodiment Data Reuse</title>
+  <title>ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="#top"><img src="assets/figures/icon.png" alt=""><span>ReEmbody</span></a><nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#construction">Data construction</a><a href="#simulation">Simulation</a><a href="#videos">Real robots</a><a href="#results">Results</a><a href="#citation">Citation</a></nav></header>
-  <main id="top">
-    <section class="hero wrap">
-      <div class="eyebrow">RESEARCH PROJECT · PEKING UNIVERSITY</div>
-      <h1>ReEmbody<span class="title-colon">:</span><br><span>Cross-Embodiment Data Reuse for Real-World Robot Learning</span></h1>
-      <p class="hero-deck">Turn demonstrations recorded on one robot into useful training data for another robot, with target-specific actions and synchronized observations.</p>
-      <div class="authors" aria-label="Authors"><a href="https://openreview.net/profile?id=~Yichen_Liu17">Yichen Liu</a><a href="https://openreview.net/profile?id=~Guodong_Lv1">Guodong Lv</a><a href="https://openreview.net/profile?id=~Yintianrun_Zhang2">Yintianrun Zhang</a><a href="https://openreview.net/profile?id=~Quanwei_Zhang1">Quanwei Zhang</a><a href="https://openreview.net/profile?id=~Shilong_Li3">Shilong Li</a><a href="https://openreview.net/profile?id=~Hongyu_Zhang6">Hongyu Zhang</a><a href="https://openreview.net/profile?id=~Kewei_Zhang2">Kewei Zhang</a><a href="https://openreview.net/profile?id=~Zhengzhe_Chen1">Zhengzhe Chen</a><a href="https://openreview.net/profile?id=~Jiaming_Liu11">Jiaming Liu</a><a href="https://openreview.net/profile?id=~Leixing_Wang1">Leixing Wang</a><a href="https://openreview.net/profile?id=~Feixiang_Ruan1">Feixiang Ruan</a><a href="https://openreview.net/profile?id=~Daquan_Zhou1">Daquan Zhou</a></div>
-      <div class="hero-actions"><a class="button primary" href="assets/ReEmbody-paper.pdf" target="_blank" rel="noopener">Read paper</a><a class="button secondary" href="https://github.com/DAGroup-PKU/ReEmbody.github.io" target="_blank" rel="noopener">Project repository</a></div>
-      <div class="hero-figure"><img src="assets/figures/teaser_svg_v23.jpg" alt="ReEmbody overview: source robot demonstrations are reused across target embodiments"><p>From a source demonstration to target robot execution and policy learning.</p></div>
+  <!-- Fixed Ambient Dimmed Multi-Robot Video Mosaic (ReVidgen Signature Backdrop) -->
+  <video autoplay muted loop playsinline id="background-video" aria-hidden="true">
+    <source src="assets/videos/hero-bg.mp4" type="video/mp4">
+  </video>
+
+  <!-- Minimal Floating Sticky Nav -->
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="nav-brand" href="#intro">
+        <img src="assets/figures/icon.png" alt="" width="28" height="28">
+        <span>ReEmbody</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#showcase-video">Demo</a>
+        <a href="#real-cross">Real-World Transfer</a>
+        <a href="#robotwin-cross">RoboTwin 2.0</a>
+        <a href="#method">Overview</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO / INTRO ==================== -->
+    <section id="intro">
+      <div class="hero-content">
+        <h1 class="hero-title-wrap">
+          <span class="hero-brand-line">
+            <img class="hero-title-icon" src="assets/figures/icon.png" alt="ReEmbody icon">
+            <span class="title-art-brand">ReEmbody</span>
+          </span>
+          <span class="title-art-sub">Cross-Embodiment Data Reuse for Real-World Robot Learning</span>
+        </h1>
+
+        <div class="authors" aria-label="Authors">
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Yichen_Liu17" target="_blank" rel="noopener">Yichen Liu</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Guodong_Lv1" target="_blank" rel="noopener">Guodong Lv</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Yintianrun_Zhang2" target="_blank" rel="noopener">Yintianrun Zhang</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Quanwei_Zhang1" target="_blank" rel="noopener">Quanwei Zhang</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Shilong_Li3" target="_blank" rel="noopener">Shilong Li</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Hongyu_Zhang6" target="_blank" rel="noopener">Hongyu Zhang</a></span>
+          <br class="author-br">
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Kewei_Zhang2" target="_blank" rel="noopener">Kewei Zhang</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Zhengzhe_Chen1" target="_blank" rel="noopener">Zhengzhe Chen</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Jiaming_Liu11" target="_blank" rel="noopener">Jiaming Liu</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Leixing_Wang1" target="_blank" rel="noopener">Leixing Wang</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Feixiang_Ruan1" target="_blank" rel="noopener">Feixiang Ruan</a></span>
+          <span class="author-block"><a href="https://openreview.net/profile?id=~Daquan_Zhou1" target="_blank" rel="noopener">Daquan Zhou<sup>†</sup></a></span>
+        </div>
+
+        <div class="author-affiliation">
+          <div class="pku-inline">
+            <img class="pku-seal-img" src="assets/figures/pku-seal.png" alt="Peking University">
+            <span>Peking University</span>
+          </div>
+          <span class="corresp-note"><sup>†</sup> Corresponding author</span>
+        </div>
+
+        <div class="cta-row">
+          <a class="cta-button" href="assets/ReEmbody-paper.pdf" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Paper PDF
+          </a>
+          <a class="cta-button" href="https://github.com/DAGroup-PKU/ReEmbody.github.io" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+          <a class="cta-button" href="#real-cross">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+            Real-World Videos
+          </a>
+          <a class="cta-button" href="#robotwin-cross">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg>
+            RoboTwin 4×4
+          </a>
+          <a class="cta-button" href="#results">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            Results
+          </a>
+          <a class="cta-button" href="#bibtex">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6c0 2.5-1.5 4.5-4 5.5M20 11h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6c0 2.5-1.5 4.5-4 5.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            BibTeX
+          </a>
+        </div>
+      </div>
     </section>
-    <section class="intro band" id="overview"><div class="wrap intro-grid"><div><div class="eyebrow">THE IDEA</div><h2>Reuse the experience.<br>Adapt the embodiment.</h2></div><div><p>Robot demonstrations contain observations and actions tied to the body that collected them. ReEmbody reconstructs source interactions, grounds task relations in objects and contact, and generates controllers for a target robot. Successful executions become aligned observations and actions for target-policy learning.</p><div class="stat-row"><div><strong>2</strong><span>real robot embodiments</span></div><div><strong>3</strong><span>real-world tasks</span></div><div><strong>16</strong><span>RoboTwin task–body pairs</span></div></div></div></div></section>
-    <section class="section wrap" id="method"><div class="section-heading"><div class="eyebrow">HOW IT WORKS</div><h2>From source interaction to target policy</h2><p>ReEmbody links task-family relation contracts to replayed contact and timing evidence, then uses scene and robot descriptions to generate and revise target controllers.</p></div><div class="figure-frame"><img loading="lazy" src="assets/figures/overview_svg_v35.jpg" alt="ReEmbody method pipeline diagram"></div><div class="steps"><div><b>01</b><h3>Reconstruct</h3><p>Ground source demonstrations in objects, geometry, and relations.</p></div><div><b>02</b><h3>Execute</h3><p>Generate target controllers and revise them with measured task feedback.</p></div><div><b>03</b><h3>Learn</h3><p>Use admitted target executions as synchronized policy training data.</p></div></div></section>
-    <section class="section construction" id="construction"><div class="wrap"><div class="section-heading"><div class="eyebrow">CROSS-EMBODIMENT DATA CONSTRUCTION</div><h2>One source, multiple target bodies</h2><p>The same task-family source demonstrations are reconstructed, mapped to each target robot, and replayed to produce target-specific observations and actions. These are construction examples, distinct from the final real-robot policy recordings below.</p></div><div class="construction-stage"><div class="stage-heading"><span>01 / SOURCE INTERACTIONS</span><h3>Recorded on COBOT-Magic</h3><p>Head-camera demonstrations for three task families.</p></div><div class="video-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v16.mp4" aria-label="Cups on COBOT-Magic · source"></video><div><span>COBOT-Magic · source</span><h3>Cups</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v19.mp4" aria-label="Blocks on COBOT-Magic · source"></video><div><span>COBOT-Magic · source</span><h3>Blocks</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v22.mp4" aria-label="Drawer on COBOT-Magic · source"></video><div><span>COBOT-Magic · source</span><h3>Drawer</h3></div></article></div></div><div class="flow-divider" aria-hidden="true">Source interaction <span>→</span> task relations and target controller <span>→</span> target data</div><div class="construction-stage"><div class="stage-heading"><span>02 / TARGET DATA REPLAY</span><h3>Reconstructed for S1 and Franka</h3><p>Target-view replay for the same Cups, Blocks, and Drawer task families.</p></div><div class="video-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v49.mp4" aria-label="Cups on Astribot S1"></video><div><span>Astribot S1</span><h3>Cups</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v50.mp4" aria-label="Blocks on Astribot S1"></video><div><span>Astribot S1</span><h3>Blocks</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v51.mp4" aria-label="Drawer on Astribot S1"></video><div><span>Astribot S1</span><h3>Drawer</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v52.mp4" aria-label="Cups on Dual-arm Franka"></video><div><span>Dual-arm Franka</span><h3>Cups</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v53.mp4" aria-label="Blocks on Dual-arm Franka"></video><div><span>Dual-arm Franka</span><h3>Blocks</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v54.mp4" aria-label="Drawer on Dual-arm Franka"></video><div><span>Dual-arm Franka</span><h3>Drawer</h3></div></article></div></div></div></section>
-<section class="section simulation" id="simulation"><div class="wrap"><div class="section-heading"><div class="eyebrow">ROBOTWIN 2.0 · CROSS-EMBODIMENT EXECUTION</div><h2>Four tasks, four embodiments</h2><p>Representative target executions from the data-construction pipeline. Compare a task across ARX-X5, Franka Panda, Piper, and UR5-WSG to see how the same task relations are realized with different robot mechanics.</p></div><div class="task-row"><div class="task-label"><h3>Bin transfer</h3><p>Target execution</p></div><div class="sim-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v25.mp4" aria-label="Bin transfer on ARX-X5"></video><div><span>ARX-X5</span><h3>Bin transfer</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v26.mp4" aria-label="Bin transfer on Franka Panda"></video><div><span>Franka Panda</span><h3>Bin transfer</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v27.mp4" aria-label="Bin transfer on Piper"></video><div><span>Piper</span><h3>Bin transfer</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v28.mp4" aria-label="Bin transfer on UR5-WSG"></video><div><span>UR5-WSG</span><h3>Bin transfer</h3></div></article></div></div><div class="task-row"><div class="task-label"><h3>Block handover</h3><p>Target execution</p></div><div class="sim-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v29.mp4" aria-label="Block handover on ARX-X5"></video><div><span>ARX-X5</span><h3>Block handover</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v30.mp4" aria-label="Block handover on Franka Panda"></video><div><span>Franka Panda</span><h3>Block handover</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v31.mp4" aria-label="Block handover on Piper"></video><div><span>Piper</span><h3>Block handover</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v32.mp4" aria-label="Block handover on UR5-WSG"></video><div><span>UR5-WSG</span><h3>Block handover</h3></div></article></div></div><div class="task-row"><div class="task-label"><h3>Lift pot</h3><p>Target execution</p></div><div class="sim-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v33.mp4" aria-label="Lift pot on ARX-X5"></video><div><span>ARX-X5</span><h3>Lift pot</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v34.mp4" aria-label="Lift pot on Franka Panda"></video><div><span>Franka Panda</span><h3>Lift pot</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v35.mp4" aria-label="Lift pot on Piper"></video><div><span>Piper</span><h3>Lift pot</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v36.mp4" aria-label="Lift pot on UR5-WSG"></video><div><span>UR5-WSG</span><h3>Lift pot</h3></div></article></div></div><div class="task-row"><div class="task-label"><h3>Turn switch</h3><p>Target execution</p></div><div class="sim-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v37.mp4" aria-label="Turn switch on ARX-X5"></video><div><span>ARX-X5</span><h3>Turn switch</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v38.mp4" aria-label="Turn switch on Franka Panda"></video><div><span>Franka Panda</span><h3>Turn switch</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v39.mp4" aria-label="Turn switch on Piper"></video><div><span>Piper</span><h3>Turn switch</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/v40.mp4" aria-label="Turn switch on UR5-WSG"></video><div><span>UR5-WSG</span><h3>Turn switch</h3></div></article></div></div><p class="media-note">The simulation clips are representative recorded executions; quantitative success rates are reported in the evaluation below.</p></div></section>
-    <section class="section video-section" id="videos"><div class="wrap"><div class="section-heading"><div class="eyebrow">REAL-WORLD ROBOT LEARNING</div><h2>Three tasks, two real robots</h2><p>Representative external-camera recordings for Cups, Blocks, and Drawer on Astribot S1 and dual-arm Franka. Select a video to play.</p></div><div class="video-grid"><article class="video-card"><video controls preload="none" playsinline src="assets/videos/cup_s1_01.mp4"></video><div><span>Astribot S1</span><h3>Cups</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/block_s1_01.mp4"></video><div><span>Astribot S1</span><h3>Blocks</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/drawer_s1_01.mp4"></video><div><span>Astribot S1</span><h3>Drawer</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/franka_cup_2.mp4"></video><div><span>Dual-arm Franka</span><h3>Cups</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/franka_block_1.mp4"></video><div><span>Dual-arm Franka</span><h3>Blocks</h3></div></article><article class="video-card"><video controls preload="none" playsinline src="assets/videos/franka_draw_1.mp4"></video><div><span>Dual-arm Franka</span><h3>Drawer</h3></div></article></div><p class="media-note">Some browsers may require HEVC support to play these source recordings.</p></div></section>
-    <section class="section wrap" id="results"><div class="section-heading"><div class="eyebrow">EVALUATION</div><h2>Closed-loop transfer, measured</h2><p>Policies fine-tuned only on generated target data achieve 78.3–85.0% mean success across the three real-world tasks, without further real-world training.</p></div><div class="result-grid"><div class="result-card"><span>RoboTwin 2.0 · 16 task–body pairs</span><strong>67.7%</strong><p>controller success</p><small>Baseline: 50.9%</small></div><div class="result-card"><span>RoboTwin 2.0 · 16 task–body pairs</span><strong>51.8%</strong><p>learned-policy success</p><small>Baseline: 33.3%</small></div></div><div class="result-figures"><figure><img loading="lazy" src="assets/figures/real_svg_v20.jpg" alt="Real robot and simulation task examples"><figcaption>Task stages and learned-policy examples</figcaption></figure><figure><img loading="lazy" src="assets/figures/robotwin_synthesis_bars.jpg" alt="RoboTwin controller success comparison chart"><figcaption>RoboTwin controller synthesis results</figcaption></figure></div></section>
-    <section class="section band cases"><div class="wrap"><div class="section-heading"><div class="eyebrow">COMPONENT CASES</div><h2>Grounding matters</h2><p>Qualitative cases from the paper show how individual components contribute to target execution.</p></div><div class="figure-frame"><img loading="lazy" src="assets/figures/qualitative_components_v01.jpg" alt="Qualitative component cases from the ReEmbody paper"></div></div></section>
-    <section class="section wrap citation" id="citation"><div class="eyebrow">REFERENCE</div><h2>Citation</h2><pre><code>@article{liu2026reembody,
-  title={ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning},
-  author={Liu, Yichen and Lv, Guodong and Zhang, Yintianrun and Zhang, Quanwei and Li, Shilong and Zhang, Hongyu and Zhang, Kewei and Chen, Zhengzhe and Liu, Jiaming and Wang, Leixing and Ruan, Feixiang and Zhou, Daquan},
-  year={2026}
-}</code></pre><button id="copy-citation" class="button secondary" type="button">Copy BibTeX</button></section>
+
+    <!-- ==================== 2-MINUTE SHOWCASE VIDEO ==================== -->
+    <section id="showcase-video" class="showcase-section">
+      <p class="showcase-caption">Overview</p>
+      <div class="showcase-bezel" id="showcase-player">
+        <div class="showcase-video-stage">
+          <video id="main-showcase-video" playsinline preload="metadata" poster="assets/posters/reembody-showcase.jpg" src="assets/videos/reembody-showcase.mp4"></video>
+          <button class="center-play-btn" id="center-play-btn" type="button" aria-label="Play showcase video">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7,4 21,12 7,20"/></svg>
+          </button>
+        </div>
+
+        <!-- Custom Draggable Scrubber + Speed Selector + Chapter Jump Bar -->
+        <div class="custom-controls">
+          <div class="scrubber-wrap" id="scrubber-wrap" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="120" aria-valuenow="0" tabindex="0">
+            <div class="scrubber-rail">
+              <div class="scrubber-fill" id="scrubber-fill"></div>
+              <div class="scrubber-thumb" id="scrubber-thumb"></div>
+            </div>
+            <span class="chapter-mark" style="left:4.2%" title="0:05 · Data construction"></span>
+            <span class="chapter-mark" style="left:32.1%" title="0:39 · Real-world deployment"></span>
+            <span class="chapter-mark" style="left:74.4%" title="1:30 · Simulation"></span>
+            <div class="scrubber-tooltip" id="scrubber-tooltip">0:00</div>
+          </div>
+
+          <div class="controls-row">
+            <div class="controls-left">
+              <button class="ctrl-icon-btn" id="play-pause-btn" type="button" aria-label="Play or pause">
+                <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+                <svg id="icon-pause" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
+              </button>
+              <span class="time-readout" id="time-readout">0:00 / 2:00</span>
+
+              <div class="chapter-jumps" aria-label="Chapters">
+                <button type="button" data-seek="0">Cover</button>
+                <button type="button" data-seek="5">Data</button>
+                <button type="button" data-seek="38.6">Real World</button>
+                <button type="button" data-seek="89.6">Simulation</button>
+              </div>
+            </div>
+
+            <div class="controls-right">
+              <div class="player-speeds" aria-label="Playback speed">
+                <button type="button" data-player-speed="0.5">0.5×</button>
+                <button type="button" data-player-speed="1" class="active">1×</button>
+                <button type="button" data-player-speed="1.5">1.5×</button>
+                <button type="button" data-player-speed="2">2×</button>
+              </div>
+              <button class="ctrl-icon-btn" id="fullscreen-btn" type="button" aria-label="Fullscreen">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== REAL-WORLD CROSS-EMBODIMENT (PRIMARY SHOWCASE) ==================== -->
+    <section id="real-cross" class="band-section">
+      <div class="section-inner">
+        <div class="section-header-center">
+          <h2>Real-World Transfer</h2>
+          <p class="section-sub">Source embodiment on the left, new real robots on the right.</p>
+          <div class="task-selector" role="tablist" aria-label="Real-world display mode">
+            <button class="active" type="button" data-real-mode="expanded" aria-selected="true">All 16 trials</button>
+            <button type="button" data-real-mode="compact" aria-selected="false">One per robot</button>
+            <button type="button" data-real-mode="replay" aria-selected="false">Target replays</button>
+          </div>
+        </div>
+
+        <!-- 3 Horizontal Cross-Embodiment Task Panels: Source Left → Real S1 & Franka Right + Additional Trials -->
+        <div id="real-rows-container" class="cross-rows"></div>
+      </div>
+    </section>
+
+    <!-- ==================== ROBOTWIN 2.0 (SUPPLEMENTARY SIMULATION) ==================== -->
+    <section id="robotwin-cross" class="band-section band-supplementary">
+      <div class="section-inner">
+        <div class="section-header-center">
+          <h2>Simulation · RoboTwin 2.0</h2>
+          <p class="section-sub">Supplementary simulation: one aloha-agilex source, four new embodiments.</p>
+          <div class="task-selector" role="tablist" aria-label="RoboTwin task filter">
+            <button class="active" type="button" data-rt-filter="handover" aria-selected="true">Block Handover</button>
+            <button type="button" data-rt-filter="switch" aria-selected="false">Turn Switch</button>
+            <button type="button" data-rt-filter="pot" aria-selected="false">Lift Pot</button>
+            <button type="button" data-rt-filter="bin" aria-selected="false">Bin Transfer</button>
+            <button type="button" data-rt-filter="all" aria-selected="false">All four</button>
+          </div>
+        </div>
+
+        <div id="robotwin-rows-container" class="rt-rows"></div>
+      </div>
+    </section>
+
+    <!-- ==================== ABSTRACT & METHOD OVERVIEW ==================== -->
+    <section id="method" class="band-section">
+      <div class="section-inner narrow">
+        <div class="glass-card abstract-card">
+          <h3>Abstract</h3>
+          <p>
+            Robot demonstrations encode actions and observations specific to the body that recorded them. Reusing this experience on another robot requires training data consistent with its mechanics and cameras. We present <strong>ReEmbody</strong>, a framework that converts recorded source interactions into target-specific action labels and synchronized camera observations. It combines predefined task-family relation contracts with replayed contact and timing evidence to develop controllers under measured task and physical feedback. Reconstructed scenes ground the contracts in source objects, while robot descriptions and workspace models guide an LLM agent’s target-controller generation. Admitted executions provide aligned observations and actions for target-policy learning—achieving <strong>78.3–85.0%</strong> mean success across three tasks on two differently configured real robots without further real-world training, and <strong>67.7%</strong> controller / <strong>51.8%</strong> policy success across 16 RoboTwin 2.0 task–body pairs.
+          </p>
+        </div>
+
+        <div class="figure-showcase">
+          <div class="task-selector" role="tablist" aria-label="Overview figures">
+            <button class="active" type="button" data-overview-fig="method" aria-selected="true">Method Pipeline (Fig. 2)</button>
+            <button type="button" data-overview-fig="teaser" aria-selected="false">Cross-Embodiment Overview (Fig. 1)</button>
+          </div>
+          <figure class="glass-plate" id="overview-plate-wrap">
+            <img id="overview-plate-img" src="assets/figures/overview_svg_v35.jpg" alt="Figure 2: ReEmbody four-stage overview">
+            <figcaption id="overview-plate-cap">
+              Figure 2 — Reconstruct source scene &amp; contact evidence (01), bind task-family contract Φ (02), revise target controller under measured relation &amp; physical diagnostics (03), and render synchronized moving-camera observations to fine-tune π<sub>0.5</sub> (04). Click to zoom.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== QUANTITATIVE RESULTS & DIAGNOSTICS ==================== -->
+    <section id="results" class="band-section">
+      <div class="section-inner">
+        <div class="section-header-center">
+          <h2>Quantitative Results &amp; Diagnostics</h2>
+        </div>
+
+        <div class="results-tables-grid">
+          <!-- Table 1: Real-World & MuJoCo -->
+          <div class="glass-card table-card">
+            <h4>Table 1 · Simulated &amp; Real-Robot Policy Success</h4>
+            <div class="table-scroll">
+              <table class="dark-table">
+                <thead>
+                  <tr>
+                    <th>Target Body</th>
+                    <th>Cups</th>
+                    <th>Blocks</th>
+                    <th>Drawer</th>
+                    <th class="col-ours">All (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="group-sub"><td colspan="5">MuJoCo Held-Out (50 scenes / task)</td></tr>
+                  <tr>
+                    <td>Astribot S1</td>
+                    <td>80%</td>
+                    <td>82%</td>
+                    <td>90%</td>
+                    <td class="col-ours">84.0%</td>
+                  </tr>
+                  <tr>
+                    <td>Dual-Arm Franka</td>
+                    <td>84%</td>
+                    <td>88%</td>
+                    <td>98%</td>
+                    <td class="col-ours">90.0%</td>
+                  </tr>
+                  <tr class="group-sub"><td colspan="5">Real Robots · Zero Target Demos (20 trials / task)</td></tr>
+                  <tr>
+                    <td>Astribot S1</td>
+                    <td>14/20</td>
+                    <td>15/20</td>
+                    <td>18/20</td>
+                    <td class="col-ours">78.3%</td>
+                  </tr>
+                  <tr>
+                    <td>Dual-Arm Franka</td>
+                    <td>16/20</td>
+                    <td>16/20</td>
+                    <td>19/20</td>
+                    <td class="col-ours">85.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Table 2: RoboTwin 2.0 -->
+          <div class="glass-card table-card">
+            <h4>Table 2 · RoboTwin 2.0 Learned Policy Success (%)</h4>
+            <div class="table-scroll">
+              <table class="dark-table compact-t">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Task</th>
+                    <th colspan="3">ARX-X5</th>
+                    <th colspan="3">Franka</th>
+                    <th colspan="3">UR5-WSG</th>
+                    <th colspan="3">Piper</th>
+                  </tr>
+                  <tr>
+                    <th>Src</th><th>RT</th><th class="col-ours">Ours</th>
+                    <th>Src</th><th>RT</th><th class="col-ours">Ours</th>
+                    <th>Src</th><th>RT</th><th class="col-ours">Ours</th>
+                    <th>Src</th><th>RT</th><th class="col-ours">Ours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Switch</code></td>
+                    <td>36</td><td class="bold">76</td><td class="col-ours">60</td>
+                    <td>11</td><td>42</td><td class="col-ours bold">65</td>
+                    <td>1</td><td class="bold">55</td><td class="col-ours">53</td>
+                    <td>1</td><td>61</td><td class="col-ours bold">68</td>
+                  </tr>
+                  <tr>
+                    <td><code>Handover</code></td>
+                    <td>0</td><td>59</td><td class="col-ours bold">89</td>
+                    <td>0</td><td>15</td><td class="col-ours bold">22</td>
+                    <td>0</td><td class="bold">76</td><td class="col-ours">68</td>
+                    <td>0</td><td>37</td><td class="col-ours bold">41</td>
+                  </tr>
+                  <tr>
+                    <td><code>Lift Pot</code></td>
+                    <td>0</td><td>50</td><td class="col-ours bold">87</td>
+                    <td>0</td><td>0</td><td class="col-ours bold">70</td>
+                    <td>0</td><td>19</td><td class="col-ours bold">45</td>
+                    <td>0</td><td>0</td><td class="col-ours bold">52</td>
+                  </tr>
+                  <tr>
+                    <td><code>Bin</code></td>
+                    <td>6</td><td>0</td><td class="col-ours bold">34</td>
+                    <td>0</td><td>17</td><td class="col-ours bold">28</td>
+                    <td>0</td><td>25</td><td class="col-ours bold">43</td>
+                    <td>0</td><td>0</td><td class="col-ours bold">4</td>
+                  </tr>
+                  <tr class="mean-row">
+                    <td><strong>Mean</strong></td>
+                    <td>10.5</td><td>46.3</td><td class="col-ours bold">67.5</td>
+                    <td>2.8</td><td>18.5</td><td class="col-ours bold">46.3</td>
+                    <td>0.3</td><td>43.8</td><td class="col-ours bold">52.3</td>
+                    <td>0.3</td><td>24.5</td><td class="col-ours bold">41.3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unified Figures Switcher (Fig 4 / Fig 3 / Fig 5) -->
+        <div class="figure-showcase">
+          <div class="task-selector" role="tablist" aria-label="Result and diagnostic figures">
+            <button class="active" type="button" data-res-fig="bars" aria-selected="true">Controller Synthesis (Fig. 4)</button>
+            <button type="button" data-res-fig="stages" aria-selected="false">Interaction Stages (Fig. 3)</button>
+            <button type="button" data-res-fig="diag" aria-selected="false">Component Diagnostics (Fig. 5)</button>
+          </div>
+          <figure class="glass-plate" id="res-plate-wrap">
+            <img id="res-plate-img" loading="lazy" src="assets/figures/robotwin_synthesis_bars.jpg" alt="Figure 4: Cross-embodiment controller synthesis on RoboTwin 2.0">
+            <figcaption id="res-plate-cap">
+              Figure 4 — Cross-embodiment controller success across 16 RoboTwin 2.0 task–body pairs (67.7% ReEmbody vs. 50.9% RT, 32.3% Expert, 15.1% MimicGen). Click to zoom.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BIBTEX ==================== -->
+    <section id="bibtex" class="bibtex-section">
+      <h3>BibTeX</h3>
+      <div class="bibtex-wrap">
+        <pre class="bibtex-code"><code id="bibtex-code">@article{liu2026reembody,
+  title   = {ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning},
+  author  = {Liu, Yichen and Lv, Guodong and Zhang, Yintianrun and Zhang, Quanwei and
+             Li, Shilong and Zhang, Hongyu and Zhang, Kewei and Chen, Zhengzhe and
+             Liu, Jiaming and Wang, Leixing and Ruan, Feixiang and Zhou, Daquan},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+        <div class="bibtex-actions">
+          <button id="copy-citation" class="cta-button" type="button">Copy BibTeX</button>
+        </div>
+      </div>
+      <footer class="site-footer">
+        <img src="assets/figures/icon.png" alt="" width="24" height="24">
+        <span>ReEmbody · Peking University · 2026</span>
+        <a href="#intro">Back to Top ↑</a>
+      </footer>
+    </section>
   </main>
-  <footer><div class="wrap footer-inner"><div class="brand"><img src="assets/figures/icon.png" alt=""><span>ReEmbody</span></div><span>Peking University</span><a href="#top">Back to top</a></div></footer>
+
+  <!-- ==================== GLOBAL LIGHTBOX ==================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-backdrop" data-close-lightbox></div>
+    <div class="lightbox-shell">
+      <div class="lightbox-bar">
+        <div class="lightbox-meta">
+          <strong id="lightbox-title"></strong>
+          <span id="lightbox-sub"></span>
+        </div>
+        <div class="lightbox-tools">
+          <div class="speed-group hidden" id="lightbox-speeds">
+            <button type="button" data-speed="0.5">0.5×</button>
+            <button type="button" data-speed="1" class="active">1×</button>
+            <button type="button" data-speed="1.5">1.5×</button>
+            <button type="button" data-speed="2">2×</button>
+          </div>
+          <button class="lightbox-close" type="button" data-close-lightbox aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="lightbox-body" id="lightbox-body"></div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
-</body></html>
+</body>
+</html>

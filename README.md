@@ -1,13 +1,21 @@
-# ReEmbody project page
+# ReEmbody Project Page
 
-Static GitHub Pages site for **ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning**.
+Static GitHub Pages site for **ReEmbody: Cross-Embodiment Data Reuse for Real-World Robot Learning** (Peking University).
 
 ## Publish
 
-The contents of this folder are committed to `DAGroup-PKU/ReEmbody.github.io`. In repository **Settings → Pages**, set the build and deployment source to **Deploy from a branch**, select **main** and **/(root)**, then save. The paper button points to the included `assets/ReEmbody-paper.pdf`; replace it with the public arXiv URL when available. The repository button points to this page's target repository; replace it with the public code repository when released.
+Commit the contents of this folder to `DAGroup-PKU/ReEmbody.github.io`. In repository **Settings → Pages**, set the source to **Deploy from a branch**, select **main** and **/(root)**, then save.
 
-## Assets
+- The paper button links to `assets/ReEmbody-paper.pdf` (includes Appendix A–D); update it to the public arXiv URL once posted.
+- The repository button links to `https://github.com/DAGroup-PKU/ReEmbody.github.io`; replace it with the public code repository URL upon release.
 
-Figures are raster exports of the final PDFs in `/pfs/yichen/Arxiv-RSSR/fig`. The paper PDF comes from `/pfs/yichen/Arxiv-RSSR/main.pdf`. Six videos are representative real-robot recordings listed in the supplied asset manifest. `franka_draw_1.mp4` is used for the Franka Drawer card because the figure source clip is stored in an attachment path rather than the dataset directory.
+## Structure & Assets
 
-The page now includes 31 recordings: three COBOT source demonstrations, six target-view replays for S1 and Franka, a 4-task × 4-embodiment RoboTwin target-execution matrix, and six real-robot recordings. The simulation and target replay clips use H.264, while the six real-robot clips retain their source HEVC encoding. Browser playback of those real-robot clips depends on HEVC support. The page is buildless and has no runtime dependencies beyond the optional Google Fonts request.
+- `index.html`, `styles.css`, `script.js` — Buildless static site with zero external JS runtime dependencies (only optional Google Fonts).
+- `assets/ReEmbody-paper.pdf` — Paper PDF with appendix.
+- `assets/figures/` — High-resolution figures exported from the paper (`icon.png`, `pku.png`, `teaser_svg_v23.jpg`, `overview_svg_v35.jpg`, `real_svg_v20.jpg`, `robotwin_synthesis_bars.jpg`, `qualitative_components_v01.jpg`).
+- `assets/videos/reembody-showcase.mp4` — Custom-edited 2-minute (120 s, 1280×720 H.264) introductory showcase covering cross-embodiment data construction, zero-shot real-world deployments on Astribot S1 and Dual-Arm Franka, and the 4×4 RoboTwin 2.0 benchmark.
+- `assets/videos/hero-bg.mp4` — Lightweight (~960 KB) looping 3×2 real-robot ambient background mosaic.
+- `assets/videos/real/` — All 16 real-world autonomous evaluation recordings from `cvpr-sup` (Astribot S1: 2 Cups, 3 Blocks, 3 Drawer; Dual-arm Franka: 2 Cups, 3 Blocks, 3 Drawer), transcoded to web-standard H.264 (`avc1`, faststart) for universal browser playback.
+- `assets/videos/` — 3 COBOT-Magic source demonstrations (`v16`, `v19`, `v22`), 6 synchronized target-view replays for S1 and Franka (`v49`–`v54`), and the 4×4 RoboTwin 2.0 cross-embodiment execution matrix (`v25`–`v40`).
+- `assets/posters/` — Mid-action JPEG poster thumbnails generated for all 41 videos for instant visual rendering before playback.
