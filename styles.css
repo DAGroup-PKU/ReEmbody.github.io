@@ -1410,3 +1410,19 @@ a { color: inherit; }
   text-transform: none;
   color: rgba(246, 244, 239, 0.6);
 }
+
+/* ---- even cross-embodiment rows: every tile 16:9, letterbox cropped ---- */
+.real-cross-grid {
+  grid-template-columns: 1fr 28px 1fr 1fr;
+  align-items: start;
+}
+.v-tile.is-source .v-media,
+.v-tile.is-replay .v-media {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+.v-tile.is-source .v-media video,
+.v-tile.is-replay .v-media video {
+  object-fit: cover;
+}
+.flow-sep { align-self: center; }
