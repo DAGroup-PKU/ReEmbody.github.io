@@ -1099,6 +1099,14 @@ a { color: inherit; }
   background: #fff;
 }
 
+.glass-plate video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #05070d;
+}
+
 .glass-plate figcaption {
   margin-top: 14px;
   font-size: 0.9rem;

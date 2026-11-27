@@ -143,12 +143,21 @@
   ];
 
   const OVERVIEW_FIGS = {
+    animated: {
+      kind: 'video',
+      title: 'Animated Pipeline',
+      src: 'assets/videos/reembody-pipeline.mp4',
+      poster: 'assets/posters/reembody-pipeline.jpg',
+      cap: 'Animated Pipeline — Sequential Real 1 → Sim 1 → Sim 2 → Real 2 (3-view Cycles training data) pipeline on the drawer task, followed by zero-shot π₀.₅ deployment on real Dual-Arm Franka. Click to zoom.',
+    },
     method: {
+      kind: 'image',
       src: 'assets/figures/overview_svg_v35.jpg',
       alt: 'Figure 2: ReEmbody four-stage overview',
       cap: 'Figure 2 — Reconstruct source scene & contact evidence (01), bind task-family contract Φ (02), revise target controller under measured relation & physical diagnostics (03), and render synchronized moving-camera observations to fine-tune π0.5 (04). Click to zoom.',
     },
     teaser: {
+      kind: 'image',
       src: 'assets/figures/teaser_svg_v23.jpg',
       alt: 'Figure 1: Cross-embodiment data reuse with ReEmbody',
       cap: 'Figure 1 — (a) Same relations realized across COBOT-Magic, Astribot S1, and Franka, (b) one simulated source transferred to four RoboTwin targets, (c) zero-shot real Astribot S1 deployment, and (d) RoboTwin 2.0 summary. Click to zoom.',
@@ -596,7 +605,30 @@
 
   /* -------------------- FIGURE SWITCHERS -------------------- */
 
-  let curOverview = 'method';
+  let curOverview = 'animated';
+  const overviewVideo = $('#overview-plate-video');
+  const overviewImg = $('#overview-plate-img');
+  const overviewCap = $('#overview-plate-cap');
+
+  if (overviewVideo && 'IntersectionObserver' in window) {
+    let seenOnce = false;
+    const overviewObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (curOverview !== 'animated') return;
+        if (entry.isIntersecting) {
+          if (!seenOnce) {
+            seenOnce = true;
+            try { overviewVideo.currentTime = 0; } catch {}
+          }
+          overviewVideo.play().catch(() => {});
+        } else {
+          overviewVideo.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    overviewObserver.observe(overviewVideo);
+  }
+
   $$('[data-overview-fig]').forEach((btn) => {
     btn.addEventListener('click', () => {
       curOverview = btn.dataset.overviewFig;
@@ -606,14 +638,30 @@
         b.classList.toggle('active', on);
         b.setAttribute('aria-selected', String(on));
       });
-      $('#overview-plate-img').src = cfg.src;
-      $('#overview-plate-img').alt = cfg.alt;
-      $('#overview-plate-cap').textContent = cfg.cap;
+      if (cfg.kind === 'video' && overviewVideo) {
+        overviewImg?.classList.add('hidden');
+        overviewVideo.classList.remove('hidden');
+        try { overviewVideo.currentTime = 0; } catch {}
+        overviewVideo.play().catch(() => {});
+      } else {
+        overviewVideo?.pause();
+        overviewVideo?.classList.add('hidden');
+        if (overviewImg) {
+          overviewImg.classList.remove('hidden');
+          overviewImg.src = cfg.src;
+          overviewImg.alt = cfg.alt;
+        }
+      }
+      if (overviewCap) overviewCap.textContent = cfg.cap;
     });
   });
   $('#overview-plate-wrap')?.addEventListener('click', () => {
     const cfg = OVERVIEW_FIGS[curOverview];
-    openImageLightbox(cfg.src, cfg.cap);
+    if (cfg.kind === 'video') {
+      openVideoLightbox(cfg.src, cfg.title, cfg.cap);
+    } else {
+      openImageLightbox(cfg.src, cfg.cap);
+    }
   });
 
   let curResFig = 'bars';
