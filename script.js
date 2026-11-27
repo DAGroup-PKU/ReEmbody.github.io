@@ -610,23 +610,9 @@
   const overviewImg = $('#overview-plate-img');
   const overviewCap = $('#overview-plate-cap');
 
-  if (overviewVideo && 'IntersectionObserver' in window) {
-    let seenOnce = false;
-    const overviewObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (curOverview !== 'animated') return;
-        if (entry.isIntersecting) {
-          if (!seenOnce) {
-            seenOnce = true;
-            try { overviewVideo.currentTime = 0; } catch {}
-          }
-          overviewVideo.play().catch(() => {});
-        } else {
-          overviewVideo.pause();
-        }
-      });
-    }, { threshold: 0.25 });
-    overviewObserver.observe(overviewVideo);
+  if (overviewVideo) {
+    overviewVideo.muted = true;
+    overviewVideo.play().catch(() => {});
   }
 
   $$('[data-overview-fig]').forEach((btn) => {
@@ -641,7 +627,6 @@
       if (cfg.kind === 'video' && overviewVideo) {
         overviewImg?.classList.add('hidden');
         overviewVideo.classList.remove('hidden');
-        try { overviewVideo.currentTime = 0; } catch {}
         overviewVideo.play().catch(() => {});
       } else {
         overviewVideo?.pause();
